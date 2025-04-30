@@ -559,32 +559,26 @@ router.post("/sendemail1", async (req, res) => {
 router.post("/sendemail12", async (req, res) => {
   const { Email, NAME, GENDER, PASSWORD } = req.body;
 
-  // Log all received fields
-  // console.log("Received Enrollment Number:", enrollmentNumber);
   console.log("Received Name:", NAME);
   console.log("Received Email:", Email);
   console.log("Received Gender:", GENDER);
   console.log("Received Password:", PASSWORD);
 
-  // Validate all required fields
-  if (!Email || !NAME || !GENDER  || !PASSWORD) {
+  if (!Email || !NAME || !GENDER || !PASSWORD) {
     return res.status(400).json({ error: "All fields are required." });
   }
 
-  // Generate OTP
   const otp = Math.floor(1000 + Math.random() * 9000).toString();
-  const expiry = Date.now() + 5 * 60 * 1000; // OTP valid for 5 minutes
+  const expiry = Date.now() + 5 * 60 * 1000;
 
-  // Save OTP and expiry (assuming you have an in-memory object or database)
   otps[Email] = { otp, expiry };
 
   try {
-    // Send OTP via email
     await transporter.sendMail({
       from: `"Your App" <your_email@gmail.com>`,
       to: Email,
       subject: "Your OTP Code",
-      text: `Hello ${NAME},\n\nYour OTP is ${otp}. It is valid for 5 minutes.\n\nThank you for registering!`,
+      text: `Hello ${NAME},\n\nYour OTP is ${otp}. It is valid for 5 minutes.\n\nThank you!`,
     });
 
     res.status(200).json({ message: "OTP sent successfully!" });
@@ -593,7 +587,6 @@ router.post("/sendemail12", async (req, res) => {
     res.status(500).json({ error: "Failed to send OTP email." });
   }
 });
-
 
 
 router.post("/store", async (req, res) => {

@@ -43,6 +43,8 @@ function AdminSignup() {
 
         setError(""); // Clear errors
         console.log("Sending Email:", formData.email);
+        console.log(url,'urlmy');
+        
         axios
             .post(`${url}/api/sendemail12`, {
                 NAME: formData.fullName,
