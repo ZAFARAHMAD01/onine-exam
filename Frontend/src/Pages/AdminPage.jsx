@@ -7,7 +7,7 @@ import profile from '../images/profile.jpeg';
 import { IoHome } from "react-icons/io5";
 import QuesBank from '../Components/QuesBank';
 import Home from '../Components/Home';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Examrundash from '../Components/Examrundash';
 import Logout from '../Components/Logout';
 import AdminDash from '../Components/AdminDash';
@@ -24,32 +24,19 @@ import '../css/style2.css'; // ✅ Import your background CSS
 
 function AdminPage(props) {
     const location = useLocation();
-    const { name, age } = location.state || {};
     const admin = location.state?.admin;
+    // const users = location.state?.users;
+    const users = location.state?.users || JSON.parse(localStorage.getItem("adminUser"));
 
     const name2 = useSelector((state) => state.cart);
     const url = process.env.REACT_APP_API_BASE_URL;
 
     const [selectedAdmin, setSelectedAdmin] = useState(null);
     const [admins, setAdmins] = useState([]);
-
-    useEffect(() => {
-        const fetchAdminDetails = async () => {
-            try {
-                const response = await axios.get(`${url}/api/admins`);
-                if (response.data.success) {
-                    setAdmins(response.data.admins);
-                    const filteredAdmin = response.data.admins.find(a => a.email === admin.email);
-                    if (filteredAdmin) {
-                        setSelectedAdmin(filteredAdmin);
-                    }
-                }
-            } catch (err) {
-                console.error("Error fetching admin:", err);
-            }
-        };
-        fetchAdminDetails();
-    }, []);
+    const [error, setError] = useState(null);
+    const [userss, setUsers] = useState([]);
+    const [matchedUser, setMatchedUser] = useState(null);
+    const dispatch = useDispatch();
 
     const [user, setUser] = useState({ user: "login" });
 
@@ -61,22 +48,93 @@ function AdminPage(props) {
     const addtest = () => setUser(prev => ({ ...prev, user: "addtest" }));
     const managestudent = () => setUser(prev => ({ ...prev, user: "managestudent" }));
 
+    useEffect(() => {
+        const fetchAdminDetails = async () => {
+            try {
+                const response = await axios.get(`${url}/api/admins`);
+                if (response.data.success) {
+                    setAdmins(response.data.admins);
+                    const filteredAdmin = response.data.admins.find(a => a.email === admin?.email);
+                    if (filteredAdmin) {
+                        setSelectedAdmin(filteredAdmin);
+                    }
+                }
+            } catch (err) {
+                console.error("Error fetching admin:", err);
+            }
+        };
+        fetchAdminDetails();
+    }, [admin, url]);
+
+    useEffect(() => {
+        if (!users?.fullName || !users?.gender || !users?.email || !users?.password) {
+            console.warn("Missing required user data.");
+            return;
+        }
+
+        const LoginedAdminDetails = {
+            name: users.fullName,
+            gender: users.gender,
+            email: users.email,
+            password: users.password,
+        };
+
+        axios.post(`${url}/api/logineduAdmincurrent`, LoginedAdminDetails)
+            .then(response => {
+                console.log("User saved in DB:", response.data);
+            })
+            .catch(error => {
+                console.error("Error saving user:", error?.response?.data || error.message);
+            });
+    }, [users, url]);
+
+    useEffect(() => {
+        const fetchAdmin = async () => {
+            try {
+                const response = await axios.get(`${url}/api/logineduAdmincurrent`);
+                if (response.data.users) {
+                    setUsers(response.data.users);
+                } else {
+                    setError('No users found in the response');
+                }
+            } catch (err) {
+                setError('Failed to fetch users');
+                console.error('Error fetching users:', err);
+            }
+        };
+        fetchAdmin();
+    }, [url]);
+
+    useEffect(() => {
+        if (!users || !users.email) return;
+        const match = userss.find(user => user.email === users.email);
+        setMatchedUser(match);
+    }, [userss, users?.email]);
+    useEffect(() => {
+        if (users?.email) {
+            localStorage.setItem("adminUser", JSON.stringify(users));
+        }
+    }, [users]);
+
     return (
-        <div className='adminbg'> {/* ✅ Background applied here */}
+        <div className='adminbg'>
             <div className='d-flex'>
                 <div className='twopart2'>
-                    <Container className='p-3 '>
+                    <Container className='p-3'>
                         <Row>
                             <Col sm>
                                 <h2 className='text-light'>Online Exam</h2>
                             </Col>
                             <Col sm>
                                 <div className='d-flex profile'>
-                                    <div>
-                                        {/* Optional: Admin name or greeting */}
-                                    </div>
-                                    <div>
-                                        <Image src={profile} className='rounded-circle profilestudent' />
+                                <div>
+                                    
+                                </div>
+                                <div>
+                                    
+                                </div>
+                                    <div className="rounded-circle profilestudent-initials cursor-pointer d-flex align-items-center justify-content-center">
+                                        {matchedUser?.name?.charAt(0).toUpperCase()}
                                     </div>
                                 </div>
                             </Col>
@@ -93,11 +151,11 @@ function AdminPage(props) {
                     <div className='p-3'>
                         <div className="studentprof mt-3">
                             <div className='stuprof d-flex'>
-                                <div>
-                                    <Image src={profile} className='rounded-circle profilestudent' />
+                                <div className="rounded-circle profilestudent-initials cursor-pointer d-flex align-items-center justify-content-center">
+                                    {matchedUser?.name?.charAt(0).toUpperCase()}
                                 </div>
                                 <div>
-                                    <div className="name"><h5>{selectedAdmin?.fullName}</h5></div>
+                                    <div className="name"><h5>{matchedUser?.name}</h5></div>
                                     <div className="Catofgory">Administrator</div>
                                 </div>
                             </div>

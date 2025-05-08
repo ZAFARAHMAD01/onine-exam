@@ -332,5 +332,53 @@ button:hover {
   background-color: #218838;
 }
 
+/*  password strong */
+.password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
 
+.password-wrapper input {
+  flex: 1;
+  padding-right: 2.5rem;
+}
+
+.eye-button {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.strength-text {
+  margin-top: 5px;
+  font-weight: bold;
+}
+
+.strength-text.weak {
+  color: red;
+}
+
+.strength-text.medium {
+  color: orange;
+}
+
+.strength-text.strong {
+  color: green;
+}
+
+.eyesbutton{
+  width: 10% !important;
+}
+.eyesbutton:hover{
+  background-color: transparent;
+}
+
+.eyeb {
+  color: black;
+  font-weight: bold;
+}
 

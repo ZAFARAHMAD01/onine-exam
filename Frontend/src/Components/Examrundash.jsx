@@ -10,7 +10,7 @@ function Examrundash( props ) {
   const [slidesData, setSlidesData] = useState([]);
   const [storequestion, setStorequestion] = useState([]);
   const [selectedAnswers, setSelectedAnswers] = useState({});
-  const [timeLeft, setTimeLeft] = useState(0); // Initialize timeLeft state
+  const [timeLeft, setTimeLeft] = useState(1); // Initialize timeLeft state
   const navigate = useNavigate();
   const location = useLocation();
   const { paperID, timeer,totalmark,papertitle } = location.state || {}; // Get paperID and timer from location state
@@ -86,10 +86,16 @@ function Examrundash( props ) {
 
   // Effect to update the countdown every second
   useEffect(() => {
-    if (timeLeft <= 0) return; // Stop the countdown when it reaches 0 or less
+    if (timeLeft <= 0) {
+      console.log(paperID,'mypprid');
+      
+      navigate('/userloginsucc')
+    }; // Stop the countdown when it reaches 0 or less
 
     const timer = setInterval(() => {
       setTimeLeft(prevTime => Math.max(prevTime - 1, 0)); // Ensure timeLeft doesn't go below 0
+      console.log(timeLeft);
+      
     }, 1000); // Update every second
 
     // Cleanup function to clear the interval when the component unmounts or timeLeft reaches 0
@@ -124,7 +130,7 @@ function Examrundash( props ) {
             </div>
             <div>
               <h6 className="timer"> Time Left:
-                {timeLeft <= 0 ? "Time's up!" : `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`}
+                {`${minutes}:${seconds < 10 ? '0' : ''}${seconds}`}
               </h6>
             </div>
           </div>

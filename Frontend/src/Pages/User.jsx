@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import '../css/style2.css'; // Custom styles
+import '../css/style2.css';
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import '../javascript/ja';
-
+import { RxEyeOpen } from "react-icons/rx";
+import { GoEyeClosed } from "react-icons/go";
 function User() {
   const [formData, setFormData] = useState({
     fullName: "",
@@ -19,11 +21,30 @@ function User() {
   const [otp, setOtp] = useState(["", "", "", ""]);
   const [showOTPSection, setShowOTPSection] = useState(false);
   const [otpError, setOtpError] = useState("");
+  const [passwordStrength, setPasswordStrength] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
   const navigate = useNavigate();
   const url = process.env.REACT_APP_API_BASE_URL;
 
+  const getPasswordStrength = (password) => {
+    if (!password) return "";
+    const strong = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?#&])[A-Za-z\d@$!%*?#&]{8,}$/;
+    const medium = /^((?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,})$/;
+
+    if (strong.test(password)) return "Strong";
+    if (medium.test(password)) return "Medium";
+    return "Weak";
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
+
+    if (name === "password") {
+      setPasswordStrength(getPasswordStrength(value));
+    }
+
     setFormData({
       ...formData,
       [name]: value,
@@ -32,12 +53,14 @@ function User() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     if (formData.password !== formData.confirmPassword) {
       setError("Passwords do not match!");
       return;
     }
 
     setError("");
+
     axios
       .post(`${url}/api/sendemail1`, {
         NAME: formData.fullName,
@@ -108,7 +131,7 @@ function User() {
   return (
     <div className="fullpage-otp-bg">
       <div className="card-form">
-        <h1 className="text-center">{!showOTPSection ? "Registration Form" : "Verify OTP"}</h1>
+        <h2 className="text-center">{!showOTPSection ? "Registration Form" : "Verify OTP"}</h2>
 
         {!showOTPSection ? (
           <form onSubmit={handleSubmit}>
@@ -127,8 +150,52 @@ function User() {
                 <option value="B.Sc">B.Sc</option><option value="M.Sc">M.Sc</option>
               </select>
             </div>
-            <div className="form-group"><label>Password:</label><input type="password" name="password" value={formData.password} onChange={handleChange} required /></div>
-            <div className="form-group"><label>Confirm Password:</label><input type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} required /></div>
+
+            <div className="form-group">
+              <label>Password:</label>
+              <div className="password-wrapper">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  required
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="eye-button  eyesbutton"  
+                >
+                  {showPassword ? <RxEyeOpen  className="eyeb"/> : <GoEyeClosed className="eyeb" />}
+                </button>
+              </div>
+              {passwordStrength && (
+                <p className={`strength-text ${passwordStrength.toLowerCase()}`}>
+                  Strength: {passwordStrength}
+                </p>
+              )}
+            </div>
+
+            <div className="form-group">
+              <label>Confirm Password:</label>
+              <div className="password-wrapper">
+                <input
+                  type={showConfirmPassword ? "text" : "password"}
+                  name="confirmPassword"
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
+                  required
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  className="eye-button eyesbutton"
+                >
+                  {showConfirmPassword ? <RxEyeOpen  className="eyeb"/> : <GoEyeClosed className="eyeb" />}
+                </button>
+              </div>
+            </div>
+
             {error && <p className="error-message">{error}</p>}
             <button type="submit" className="btn-primary-full">Register</button>
           </form>

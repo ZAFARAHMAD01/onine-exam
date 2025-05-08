@@ -16,12 +16,37 @@ function Mainpage(props) {
   const { users } = location.state || {};
   const url = process.env.REACT_APP_API_BASE_URL;
   console.log(users);
+  const [error, setError] = useState(null);
+  const [userss, setUsers] = useState([]);
+  
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await axios.get(`${url}/api/loginedusercurrent`);
+        console.log("Fetched Response new Data:", response.data); // Log the full response
+        if (response.data.users) {
+          setUsers(response.data.users);
+          console.log(userss[0].name,'usersss');
+           // Save the fetched users in state
+        } else {
+          setError('No users found in the response');
+        }
+      } catch (err) {
+        setError('Failed to fetch users');
+        console.error('Error fetching users:', err);
+      }
+    };
+  
+    fetchUsers();
+  }, [url]); // Fetch when the UR
   
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [user, setUser] = useState({ user: "login" });
+  // const [user, setUser] = useState({ user: "login" });
+  const [user, setUser] = useState({ user: "login", userdata: users });
+
   const [showLogout, setShowLogout] = useState(false);
   const logoutRef = useRef(null);
 
@@ -105,24 +130,28 @@ function Mainpage(props) {
 
                   </div>
                   <div className="position-relative">
-                    <Image
-                      src={profile}
-                      className="rounded-circle profilestudent cursor-pointer"
-                      onClick={handleProfileClick}
-                    />
-                    {showLogout && (
-                      <div
-                        ref={logoutRef}
-                        className="logout-section position-absolute bg-light shadow p-3 rounded"
-                        style={{ right: 0, top: "50px", width: "200px" }}
-                      >
-                        <h6 className="text-center">Hello, {users?.NAME }</h6>
-                        <Button variant="danger" className="w-100 mt-2" onClick={handleLogout}>
-                          Logout
-                        </Button>
-                      </div>
-                    )}
-                  </div>
+  <div
+    className="rounded-circle profilestudent-initials cursor-pointer d-flex align-items-center justify-content-center"
+    onClick={handleProfileClick}
+  >
+    {userss[0]?.name.charAt(0).toUpperCase()}
+
+  </div>
+
+  {showLogout && (
+    <div
+      ref={logoutRef}
+      className="logout-section position-absolute bg-light shadow p-3 rounded"
+      style={{ right: 0, top: "50px", width: "200px" }}
+    >
+      <h6 className="text-center">Hello, {userss[0]?.name}</h6>
+      <Button variant="danger" className="w-100 mt-2" onClick={handleLogout}>
+        Logout
+      </Button>
+    </div>
+  )}
+</div>
+
                 </div>
               </Col>
             </Row>
@@ -138,16 +167,25 @@ function Mainpage(props) {
         <div className="sidebar p-2">
           <div className="studentprof mt-3">
             <div className="stuprof d-flex align-items-center">
-              <Image src={profile} className="rounded-circle profilestudent me-2" />
+            <div className="position-relative">
+  <div
+    className="rounded-circle profilestudent-initials cursor-pointer d-flex align-items-center justify-content-center"
+    // onClick={handleProfileClick}
+  >
+    {userss[0]?.name.charAt(0).toUpperCase()}
+  </div>
+</div>
+
               <div>
-                <h5>{users?.NAME || "Default Name"}</h5>
+                <h5>{userss[0]?.name} </h5>
                 <div className="category">Student</div>
               </div>
             </div>
             <div className="options mt-4">
               <ul>
-                <Link className="w-100" onClick={() => setUser({ user: "login2" })}>Home</Link>
-                <Link className="w-100" onClick={() => setUser({ user: "pythonpage" })}>Questions</Link>
+              <Link className="w-100" onClick={() => setUser((prev) => ({ ...prev, user: "login2" }))}>Home</Link>
+              <Link className="w-100" onClick={() => setUser((prev) => ({ ...prev, user: "pythonpage" }))}>Questions</Link>
+
               </ul>
             </div>
           </div>
@@ -155,7 +193,8 @@ function Mainpage(props) {
 
         <div className="content w-100">
           {name2[0]?.value === "examdone" ? (
-            <Examrundash pp={users} />
+            <Examrundash pp={user.userdata} />
+
           ) : user.user === "login" ? (
             <Home />
           ) : user.user === "pythonpage" ? (

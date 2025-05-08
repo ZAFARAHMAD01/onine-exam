@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import '../css/style2.css';
 import axios from 'axios';
@@ -33,7 +33,7 @@ function Admin() {
         const admin = response.data.user;
         console.log('✅ Admin logged in:', admin);
 
-        navigate('/Adminpage', { state: { admin } });
+        navigate('/Adminpage',  { state: { users: admin } });
       } else {
         setError(response.data.message || 'Invalid credentials.');
       }
@@ -44,6 +44,19 @@ function Admin() {
       setLoading(false);
     }
   };
+
+    useEffect(() => {
+      const deleteLoggedInAdmin = async () => {
+        try {
+          await axios.delete(`${url}/api/logineduAdmincurrent`);
+          console.log("All logged-in users have been deleted.");
+        } catch (error) {
+          console.error("Error deleting logged-in users:", error);
+        }
+      };
+  
+      deleteLoggedInAdmin();
+    }, []);
 
   return (
     <div className="admin-login-bg"> {/* ✅ Background wrapper */}

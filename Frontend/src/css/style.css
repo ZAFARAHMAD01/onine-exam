@@ -37,24 +37,37 @@ html, body {
 }
 
 
-@media screen and (max-width: 425px){
-  .content {
-    flex: 1;
-    height: 100%;
-    overflow-y: auto;
-  }
-  
+/* Base styles for mobile-first approach */
+.content {
+  flex: 1;
+  padding: 16px;
+  height: 100%;
+  overflow-y: auto;
+  margin-left: 0; /* No sidebar by default */
 }
-@media screen and (min-width: 425px){
+
+/* Small devices (portrait tablets and larger phones, 426px and up) */
+@media screen and (min-width: 426px) {
   .content {
-    flex: 1;
-    margin-left: 250px; /* Adjust this based on the sidebar width */
+    padding: 18px;
+  }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media screen and (min-width: 768px) {
+  .content {
     padding: 20px;
-    height: 100%;
-    overflow-y: auto;
   }
-  
 }
+
+/* Large devices (desktops, 1024px and up) */
+@media screen and (min-width: 1024px) {
+  .content {
+    margin-left: 250px; /* Account for sidebar */
+    padding: 24px;
+  }
+}
+
 /* Add any other styles you need for your layout */
 
 .navbarheading{
@@ -105,9 +118,7 @@ h1,h4{
     width: 80%;
     border: 1px black solid;
 }
-.adminbg{
-    background-color: rgb(51, 51, 51);
-}
+
 .sidbar2{
     background-color: grey !important;
 }
@@ -762,7 +773,7 @@ body, html, .full-page {
   background-image: url('../images/Frontpage.avif'); /* Adjust to your image path */
   background-size: cover;
   background-position: center;
-  min-height: calc(100vh - 180px); /* Adjust based on navbar + heading height */
+  min-height: calc(100vh - 241px); /* Adjust based on navbar + heading height */
   display: flex;
   align-items: center;
   justify-content: center;

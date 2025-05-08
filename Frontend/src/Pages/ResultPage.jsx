@@ -74,9 +74,7 @@ const ResultPage = () => {
                   <Table striped bordered hover responsive>
                     <thead className="table-dark">
                       <tr>
-                        <th>Enrollment Number</th>
                         <th>Paper Title</th>
-                        <th>Marks</th>
                         <th>Paper ID</th>
                         <th>Total Marks</th>
                         <th>Grade</th>
@@ -86,16 +84,7 @@ const ResultPage = () => {
                     <tbody>
                       {filteredResults.map((student, index) => (
                         <tr key={index}>
-                          <td>{student.enrollmentNumber}</td>
                           <td>{student.papertitless}</td>
-                          <td>
-                            <ul style={{ paddingLeft: '1rem' }}>
-                              {student.marks &&
-                                Object.entries(student.marks).map(([subject, mark], i) => (
-                                  <li key={i}>{subject}: {mark}</li>
-                                ))}
-                            </ul>
-                          </td>
                           <td>{student.paperidsss}</td>
                           <td>{student.totalMarks}</td>
                           <td>{student.grade}</td>

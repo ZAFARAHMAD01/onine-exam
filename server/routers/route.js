@@ -11,6 +11,7 @@ const bcrypt = require('bcryptjs');
 const Questions = require('../model/Quespaper');
 const LoggedInUser = require('../model/LoggedInUser');
 const Admin = require('../model/Admin');
+const LoggedInAdmin=require('../model/LoginnedAdmin')
 
 
 
@@ -220,6 +221,52 @@ router.get("/loginedusercurrent", async (req, res) => {
   } catch (error) {
     console.error("Error fetching users:", error);
     return res.status(500).json({ error: "Failed to fetch users" });
+  }
+});
+
+
+
+// adminloginedcurrent
+router.post('/logineduAdmincurrent', async (req, res) => {
+  try {
+    const { name, gender, email, password } = req.body;
+
+    if (!name || !gender || !email || !password) {
+      return res.status(400).json({ error: "All fields are required." });
+    }
+
+    const admin = new LoggedInAdmin({ name, gender, email, password });
+    await admin.save();
+
+    res.status(200).json({ message: 'Admin saved', admin });
+  } catch (err) {
+    console.error("Backend error:", err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+router.get("/logineduAdmincurrent", async (req, res) => {
+  try {
+    // Fetch all users from the database
+    const users = await LoggedInAdmin.find();
+
+    if (users.length === 0) {
+      return res.status(404).json({ message: "No users found" });
+    }
+
+    return res.status(200).json({ message: "Users fetched successfully", users });
+  } catch (error) {
+    console.error("Error fetching users:", error);
+    return res.status(500).json({ error: "Failed to fetch users" });
+  }
+});
+router.delete("/logineduAdmincurrent", async (req, res) => {
+  try {
+    const result = await LoggedInAdmin.deleteMany({});
+    return res.status(200).json({ message: "All logined users deleted", result });
+  } catch (error) {
+    console.error("Error deleting all users:", error);
+    return res.status(500).json({ error: "Failed to delete logined users" });
   }
 });
 
