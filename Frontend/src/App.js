@@ -66,7 +66,7 @@ function App( props) {
               <Route path="/forgetpass" element={<ForgotPassword />} />
               <Route path="/catogories" element={<Categories />} />
               <Route path="/postdad" element={<PostAd />} />
-              <Route path="/PostAdForm" element={<PostAdForm />} />
+              <Route path="/Mobile" element={<PostAdForm />} />
             
           
             </Routes>

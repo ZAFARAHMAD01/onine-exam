@@ -21,6 +21,9 @@ function FrontPage() {
       <section className='image-section'>
         <div className='overlay text-center'>
           <Container className="button-container">
+            <Button className='custom-btn mb-4' as={Link} to='/postdad'>
+              <h4 className='mb-0'>Demo</h4>
+            </Button>
             <Button className='custom-btn mb-4' as={Link} to='/Admin'>
               <h4 className='mb-0'>Admin</h4>
             </Button>

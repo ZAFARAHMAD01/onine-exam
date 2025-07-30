@@ -1,84 +1,80 @@
-.post-form {
-  max-width: 700px;
+.post-ad-container {
+  max-width: 70%;
   margin: 30px auto;
-  padding: 25px;
-  border: 1px solid #ccc;
-  font-family: Arial, sans-serif;
+  border: 1px solid #ddd;
   background-color: white;
-  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  border-radius: 6px;
+  overflow: hidden;
 }
 
-.form-section {
-  margin-bottom: 30px;
+.post-ad-container h2 {
+  text-align: center;
+  padding: 20px;
+  font-size: 20px;
+  border-bottom: 1px solid #eee;
 }
 
-.section-title {
-  font-size: 16px;
-  font-weight: bold;
-  margin-bottom: 10px;
-  display: block;
-  color: #222;
+.category-container {
+  display: flex;
+  /* height: 400px; */
 }
 
-.category-display {
-  border-bottom: 1px solid #e0e0e0;
-  padding-bottom: 10px;
+.left-panel {
+  width: 50%;
+  border-right: 1px solid #ddd;
+  background-color: #fff;
 }
 
-.category-path {
+.right-panel {
+  width: 50%;
+  background-color: #f9f9f9;
+}
+
+.category-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 15px;
-  margin-top: 5px;
-}
-
-.change-btn {
-  background: none;
-  border: none;
-  color: #007bff;
-  font-size: 14px;
+  padding: 14px 16px;
   cursor: pointer;
-  padding: 0;
+  border-bottom: 1px solid #f0f0f0;
+  transition: background-color 0.2s;
 }
 
-.change-btn:hover {
-  text-decoration: underline;
+.category-item:hover {
+  background-color: #f5f5f5;
 }
 
-.form-group {
-  margin-top: 20px;
+.category-item.active {
+  background-color: #eaeaea;
 }
 
-label {
-  display: block;
-  margin-bottom: 6px;
+.category-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.icon {
+  font-size: 20px;
+}
+
+.name {
+  font-weight: bold;
+}
+
+.arrow {
+  font-size: 18px;
+  color: #666;
+}
+
+.subcategory-item {
+  padding: 14px 20px;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
   font-size: 14px;
 }
 
-.required {
-  color: red;
-}
-
-input[type="text"],
-select,
-textarea {
-  width: 100%;
-  padding: 12px;
-  font-size: 14px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  box-sizing: border-box;
-}
-
-textarea {
-  resize: vertical;
-  min-height: 80px;
-}
-
-.char-counter {
-  text-align: right;
-  font-size: 12px;
-  color: #888;
-  margin-top: 5px;
+.subcategory-item:hover {
+  background-color: #ececec;
 }

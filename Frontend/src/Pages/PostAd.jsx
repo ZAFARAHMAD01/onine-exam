@@ -4,6 +4,7 @@ import {
   FaCar, FaHome, FaMobileAlt, FaBriefcase, FaMotorcycle, FaTv,
   FaTruck, FaCouch, FaTshirt, FaBook, FaDog, FaTools,
 } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 function PostAd() {
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -28,6 +29,7 @@ function PostAd() {
       <h2>POST YOUR AD</h2>
       <div className="category-container">
         <div className="left-panel">
+          <h2 className="text-dark text-start fs-3">Choose a category</h2>
           {categories.map((category, index) => (
             <div
               key={index}
@@ -44,14 +46,24 @@ function PostAd() {
             </div>
           ))}
         </div>
+
         <div className="right-panel">
           {selectedCategory !== null &&
             categories[selectedCategory].subcategories.length > 0 &&
-            categories[selectedCategory].subcategories.map((sub, i) => (
-              <div key={i} className="subcategory-item">
-                {sub}
-              </div>
-            ))}
+            categories[selectedCategory].subcategories.map((sub, i) => {
+              if (sub === "Mobile Phones") {
+                return (
+                  <div key={i} className="subcategory-item">
+                    <Link to="/Mobile">Mobile Phone</Link>
+                  </div>
+                );
+              }
+              return (
+                <div key={i} className="subcategory-item">
+                  {sub}
+                </div>
+              );
+            })}
         </div>
       </div>
     </div>
