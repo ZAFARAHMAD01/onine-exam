@@ -12,7 +12,7 @@ const Questions = require('../model/Quespaper');
 const LoggedInUser = require('../model/LoggedInUser');
 const Admin = require('../model/Admin');
 const LoggedInAdmin=require('../model/LoginnedAdmin')
-
+const PostAd = require("../model/PostAd");
 
 
 router.get("/home", (req,res)=>{
@@ -729,7 +729,15 @@ router.get('/userdetails', async (req, res) => {
     return res.status(500).json({ success: false, message: 'An error occurred. Please try again.' });
   }
 });
-
+router.post("/post-ad", async (req, res) => {
+  try {
+    const newAd = new PostAd(req.body);
+    const savedAd = await newAd.save();
+    res.status(201).json({ success: true, data: savedAd });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+});
 
 
 module.exports=router 

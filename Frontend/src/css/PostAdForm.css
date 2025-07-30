@@ -1,0 +1,376 @@
+.post-ad-container {
+  max-width: 70%;
+  margin: 30px auto;
+  font-family: Arial, sans-serif;
+  color: #002f34;
+  padding: 20px;
+  border-radius: 4px;
+}
+.section{
+      border: 1px solid #dcdcdc;
+      background-color: white;
+      padding: 5%;
+
+}
+.form-heading {
+  font-size: 22px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+
+
+.section-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.category-path {
+  font-size: 14px;
+  color: #002f34;
+}
+.category-path {
+    display: block !important;
+}
+.change-link {
+  color: #0040ff;
+  font-weight: 600;
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+.form-label {
+  display: block;
+  /* font-weight: 600; */
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #002f34;
+}
+
+.form-input {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 14px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+.select-input {
+  appearance: none;
+  background: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='8'%20height='5'%20viewBox='0%200%208%205'%3E%3Cpath%20fill='%23333'%20d='M0%200l4%205l4-5z'/%3E%3C/svg%3E") no-repeat right 12px center;
+  background-color: white;
+  background-size: 12px;
+}
+
+textarea.form-input {
+  resize: vertical;
+}
+
+.error-border {
+  border: 2px solid red !important;
+}
+
+.error-message {
+  font-size: 12px;
+  color: red;
+  margin-top: -5px;
+  margin-bottom: 5px;
+}
+
+.char-count {
+  font-size: 12px;
+  color: #666;
+  text-align: right;
+  margin-top: -5px;
+  margin-bottom: 15px;
+}
+
+.submit-btn {
+  background-color: #0059ff;
+  color: white;
+  padding: 10px 16px;
+  font-size: 14px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 20%;
+  
+}
+
+.submit-btn:hover {
+  background-color: #004b53;
+}
+.price-input-wrapper {
+  position: relative;
+}
+
+.rupee-symbol {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
+  font-size: 14px;
+  color: #333;
+  z-index: 1;
+}
+
+.price-input-wrapper input {
+  padding-left: 25px;
+}
+
+/* Upload section */
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.photo-upload-box {
+  width: 100% !important;
+  height: 100% !important;
+  aspect-ratio: 1 / 1;
+  border: 1px solid #dcdcdc;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  font-size: 13px;
+  color: #888;
+}
+
+.photo-upload-box:hover {
+  border: 2px solid #002f34;
+}
+button.remove-button {
+    width: 50px !important;
+    background-color: blue !important;
+}
+.camera-icon {
+  font-size: 24px;
+  color: #666;
+}
+
+.add-photo-text {
+  font-size: 15px;
+  color: #000;
+  font-weight: 600;
+  margin-top: 90px;
+}
+.tab-toggle {
+  display: flex;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 15px;
+}
+
+.tab {
+  padding: 10px 20px;
+  font-weight: 500;
+  color: #666;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+}
+
+.active-tab {
+  border-bottom: 2px solid #002f34;
+  color: #002f34;
+}
+
+.review-details {
+  border-top: 1px solid #ccc;
+  padding-top: 20px;
+}
+
+.profile-wrapper {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.profile-photo {
+  width: 60px;
+  height: 60px;
+  position: relative;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid #ccc;
+}
+
+.profile-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.camera-icon {
+  position: absolute;
+  font-size: 40px;
+  background: #fff;
+  border-radius: 50%;
+  padding: 2px;
+  /* border: 1px solid #999; */
+}
+
+.input-area {
+  flex: 1;
+  position: relative;
+}
+
+.char-count {
+  position: absolute;
+  right: 10px;
+  bottom: -20px;
+  font-size: 11px;
+  color: #999;
+}
+
+.verify-account {
+  margin-top: 15px;
+}
+
+.verify-title {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.verify-text {
+  font-size: 13px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.mobile-input-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.prefix {
+  background: #f5f5f5;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-right: none;
+  color: #333;
+}
+
+.mobile-input-wrapper input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-left: none;
+}
+
+/*  camera  */
+
+
+.profile-photo1 {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid #ccc;
+}
+
+.profile-img1 {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.camera-icon1 {
+  position: absolute;
+  bottom: -10px;
+  right: 20px;
+  background: #ffffffcc;
+  border-radius: 50%;
+  padding: 6px;
+  cursor: pointer;
+  font-size: 30px;
+  transition: background 0.3s;
+}
+
+.camera-icon1:hover {
+  background: #eee;
+}
+
+
+/*  phone validation  */
+input.valid {
+  border: 2px solid green;
+}
+
+input.invalid {
+  border: 2px solid red;
+}
+
+.validation-message {
+  font-size: 0.9rem;
+  margin-top: 4px;
+}
+
+.validation-message.valid {
+  color: green;
+}
+
+.validation-message.invalid {
+  color: red;
+}
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.photo-upload-box {
+  width: 100px;
+  height: 100px;
+  border: 2px dashed #ccc;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+  background-color: #f9f9f9;
+}
+
+.uploaded-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.remove-button {
+  position: absolute;
+  top: 3px;
+  right: 5px;
+  background: white;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.set-cover-button, .cover-label {
+  position: absolute;
+  bottom: 5px;
+  left: 5px;
+  font-size: 12px;
+  background-color: #007bff;
+  color: white;
+  padding: 2px 4px;
+  border-radius: 3px;
+  border: none;
+}
+
+.cover-label {
+  background-color: #28a745;
+}

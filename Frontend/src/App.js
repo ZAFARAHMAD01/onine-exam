@@ -25,6 +25,9 @@ import CustomAlert from './Pages/CustomAlert';
 import AdminSeeResult from './Pages/AdminSeeResult';
 import AdminSignup from './Pages/AdminSignup';
 import ForgotPassword from './Pages/ForgotPassword';
+import Categories from './Pages/Catogories';
+import PostAd from './Pages/PostAd';
+import PostAdForm from './Pages/PostAdForm';
 // import MyForm from './Pages/M';
 function App( props) {
   // console.log(name,'appsss');
@@ -61,6 +64,9 @@ function App( props) {
               <Route path="/StudentResult/:enrollmentNumber" element={<AdminSeeResult />} />
               <Route path="/AdminSignup" element={<AdminSignup />} />
               <Route path="/forgetpass" element={<ForgotPassword />} />
+              <Route path="/catogories" element={<Categories />} />
+              <Route path="/postdad" element={<PostAd />} />
+              <Route path="/PostAdForm" element={<PostAdForm />} />
             
           
             </Routes>
